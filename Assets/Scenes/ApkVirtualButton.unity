@@ -151,8 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afff2872273e12149a5e4d13a1bad4f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  KonbBut: {fileID: 1290688019}
-  rate: 0.0001
+  knob: {fileID: 1290688023}
+  rate: 0.05
 --- !u!212 &86693039
 SpriteRenderer:
   m_ObjectHideFlags: 0

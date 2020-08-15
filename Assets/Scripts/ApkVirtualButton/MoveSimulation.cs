@@ -4,17 +4,15 @@ using UnityEngine;
 
 public class MoveSimulation : MonoBehaviour
 {
-    public GameObject KonbBut;
-
+    public KnobButton knob;
     public float rate = 0.01f;
 
-    private KnobButton knob;
+    
     private Vector2 viewUpRight;
     private Vector2 viewDownLeft;
     // Start is called before the first frame update
     void Start()
     {
-        knob = KonbBut?.GetComponent<KnobButton>();
         viewUpRight = Camera.main.ViewportToWorldPoint(Vector2.one);
         viewDownLeft = Camera.main.ViewportToWorldPoint(Vector2.zero);
     }
@@ -26,7 +24,11 @@ public class MoveSimulation : MonoBehaviour
         {
             float euler = knob.curEuler;
             float radius = knob.curCircleRadius;
-            transform.position += (Vector3)CalculateMoveVector(euler, radius) * radius * rate;
+            Vector2 vector = CalculateMoveVector(euler, radius) * radius * rate * Time.deltaTime;
+            Vector2 newPos = (Vector2)transform.position + vector;
+            newPos.x = Mathf.Clamp(newPos.x, viewDownLeft.x, viewUpRight.x);
+            newPos.y = Mathf.Clamp(newPos.y, viewDownLeft.y, viewUpRight.y);
+            transform.position = newPos;
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, euler - 90f));
         }
     }
